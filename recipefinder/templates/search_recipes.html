@@ -1,7 +1,7 @@
 
 <div>
     <h1>Search Recipes</h1>
-    {{cartid}}
+    Cart Id : {{cartid}}
     <form type="get" action="" style="margin: 0">
         <input  id="search_box" type="text" name="query"  placeholder="Search..." >
         <select id="{{ form.search.selectcuisine }}" name="cuisineselected" class="form-control">
@@ -15,7 +15,7 @@
     {% for result in response %}
     <form type="post" action="/recipefinder/update_cart">    
         <li>
-            {{ result.title }} - {{ result.id }}
+            {{ result.title }}
             <br>
             <input type="hidden" name="title" value='{{result.title}}' placeholder="{{result.title}}"/>
             <input type="hidden" name="id" value='{{result.id}}' placeholder="{{result.id}}"/>

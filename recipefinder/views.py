@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import requests
 import spoonacular as sp
-from recipefinder.models import Recipe, Cart
+from recipefinder.models import Recipe, Cart, Ingredient
 
 apiKey = "bdc5899f1be24e0c9e8dab87a2d3a4f8"
 maxResults = 3
@@ -14,13 +14,12 @@ Cuisines = ["African", "American", "British", "Cajun","Caribbean", "Chinese",
 
 # Create your views here.
 def home(request):
-    return render(request, 'home.html')
-
-def search_recipes(request):
     thisCart = Cart.objects.get(pk=3)
     thisCart.save()
-    cartId = thisCart.pk
+    return render(request, 'home.html', context={"cartid": thisCart.pk})
 
+def search_recipes(request):
+    cartId = request.GET.get('cartid')    
     if request.method == 'GET':
         q = request.GET.get('query')
         c = request.GET.get('cuisineselected')
@@ -30,7 +29,7 @@ def search_recipes(request):
             url = f'https://api.spoonacular.com/recipes/search?apiKey={apiKey}&query={q}&cuisine={c}&number={maxResults}'
         response = requests.get(url).json()["results"]
         print(response)
-        context={"cuisines": Cuisines, "query": q, "cuisineselected": c, "url": url, "response": response, "cartid": cartId}
+        context={"cuisines": Cuisines, "query": q, "cuisineselected": c, "response": response, "cartid": cartId}
     else:
         context={"cuisines": Cuisines}
 
@@ -41,21 +40,26 @@ def update_cart(request):
     recipeid = request.GET.get('id')
     cartId = request.GET.get('cartid')
     thisCart = Cart.objects.get(pk=cartId)
-    recipe = Recipe(recipe_name=title, recipe_id=recipeid)
+
+    url = f'https://api.spoonacular.com/recipes/{recipeid}/information?apiKey={apiKey}&includeNutrition=false'
+    response = requests.get(url).json()
+    recipe = Recipe(recipe_name=response["title"], recipe_id=response["id"], servings=response["servings"], time_required=response["readyInMinutes"], rating=response["spoonacularScore"])
     recipe.save()
+    for result in response["extendedIngredients"]:
+        ingredient = Ingredient(ingredient_id=result["id"], amount=result["measures"]["us"]["amount"], unit=result["measures"]["us"]["unitLong"], name=result["name"])
+        recipe.ingredients.add(ingredient)
+
     thisCart.recipes.add(recipe)
 
     return render(request, 'update_cart.html', context={"title": title, "id": recipeid, "recipes": thisCart.recipes.all(), "cartid": cartId})
 
 def remove_from_cart(request):
-    title = request.GET.get('title')
-    recipeid = request.GET.get('id')
     cartId = request.GET.get('cartid')
     recipeID = request.GET.get('recipeid')
     thisCart = Cart.objects.get(pk=cartId)
     recipe = Recipe.objects.get(pk=recipeID)
     thisCart.recipes.remove(recipe)
-    return render(request, 'update_cart.html', context={"title": title, "id": recipeid, "recipes": thisCart.recipes.all(), "cartid": cartId})
+    return render(request, 'update_cart.html', context={"recipes": thisCart.recipes.all(), "cartid": cartId})
 
 def create_list(request):
     cartId = request.GET.get('cartid')
