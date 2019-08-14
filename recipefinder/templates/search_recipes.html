@@ -1,0 +1,33 @@
+
+<div>
+    <h1>Search Recipes</h1>
+    <form type="get" action="" style="margin: 0">
+        <input  id="search_box" type="text" name="query"  placeholder="Search..." >
+        <select id="{{ form.search.selectcuisine }}" name="cuisineselected" class="form-control">
+            <option value="None"></option>
+            {% for cuisine in cuisines %}
+            <option value="{{ cuisine }}" selected="selected">{{ cuisine }}</option>
+            {% endfor %}
+        </select>
+        <button id="search_submit" type="submit" >Submit</button>
+    </form>
+    <form type="post" action="/recipefinder/update_cart">
+        {% for result in response %}
+            <li>
+                {{ result.title }} - {{ result.id }}
+                <br>
+                <input type="hidden" name="title" value='{{result.title}}' placeholder="{{result.title}}"/>
+                <input type="hidden" name="id" value='{{result.id}}' placeholder="{{result.id}}"/>
+                <button id="add_cart_submit" type="submit" value = "add_cart">Add to Cart</button>
+            </li>
+        {% endfor %}
+    </form>
+    
+</div>
+
+
+
+
+<!-- {{ query }}
+{{ cuisineselected }} -->
+<!-- {{url}} -->
