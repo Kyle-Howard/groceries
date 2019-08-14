@@ -11,18 +11,17 @@
         </select>
         <button id="search_submit" type="submit" >Submit</button>
     </form>
-    <form type="post" action="/recipefinder/update_cart">
-        {% for result in response %}
-            <li>
-                {{ result.title }} - {{ result.id }}
-                <br>
-                <input type="hidden" name="title" value='{{result.title}}' placeholder="{{result.title}}"/>
-                <input type="hidden" name="id" value='{{result.id}}' placeholder="{{result.id}}"/>
-                <button id="add_cart_submit" type="submit" value = "add_cart">Add to Cart</button>
-            </li>
-        {% endfor %}
+    {% for result in response %}
+    <form type="post" action="/recipefinder/update_cart">    
+        <li>
+            {{ result.title }} - {{ result.id }}
+            <br>
+            <input type="hidden" name="title" value='{{result.title}}' placeholder="{{result.title}}"/>
+            <input type="hidden" name="id" value='{{result.id}}' placeholder="{{result.id}}"/>
+            <button id="add_cart_submit" type="submit">Add to Cart</button>
+        </li>
     </form>
-    
+    {% endfor %}
 </div>
 
 

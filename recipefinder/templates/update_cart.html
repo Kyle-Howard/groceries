@@ -1,4 +1,8 @@
 <div>
     <h1>Your Cart:</h1>
-    {{ id }} - {{ title }} - {{add_cart}}
+    {{ id }} - {{ title }}
+    <br>
+    <br>
+    {% for recipe in recipes %}
+        {{recipe}}
 </div>

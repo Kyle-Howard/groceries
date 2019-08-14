@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import requests
 import spoonacular as sp
+from recipefinder.models import Recipe, Cart
 
 apiKey = "bdc5899f1be24e0c9e8dab87a2d3a4f8"
 maxResults = 3
@@ -10,6 +11,8 @@ Cuisines = ["African", "American", "British", "Cajun","Caribbean", "Chinese",
         "Mediterranean", "Mexican", "Middle Eastern", "Nordic", "Southern",
         "Spanish", "Thai", "Vietnamese"]
 
+thisCart = Cart()
+thisCart.save()
 # Create your views here.
 
 def search_recipes(request):
@@ -31,5 +34,8 @@ def search_recipes(request):
 def update_cart(request):
     title = request.GET.get('title')
     recipeid = request.GET.get('id')
-    add = request.GET.get('add_cart')
-    return render(request, 'update_cart.html', context={"title": title, "id": recipeid, "add_cart": add})
+    recipe = Recipe(recipe_name=title, recipe_id=recipeid)
+    recipe.save()
+    thisCart.recipes.add(recipe)
+
+    return render(request, 'update_cart.html', context={"title": title, "id": recipeid, "recipes": thisCart.recipes.all()})

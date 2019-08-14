@@ -7,7 +7,7 @@ class Recipe(models.Model):
     recipe_id = models.IntegerField()
     
     def __str__(self):
-        return self.recipe_id
+        return F"{self.recipe_id} - {self.recipe_name}"
 
 class Cart(models.Model):
     recipes = models.ManyToManyField(Recipe)
