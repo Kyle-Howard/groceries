@@ -15,7 +15,7 @@ Cuisines = ["African", "American", "British", "Cajun","Caribbean", "Chinese",
 
 # Create your views here.
 def home(request):
-    thisCart = Cart.object.get(pk=5)
+    thisCart = Cart()
     thisCart.save()
     return render(request, 'home.html', context={"cartid": thisCart.pk})
 
@@ -51,6 +51,7 @@ def update_cart(request):
         recipe.ingredients.add(ingredient)
 
     thisCart.recipes.add(recipe)
+    print(response)
 
     return render(request, 'update_cart.html', context={"title": title, "id": recipeid, "recipes": thisCart.recipes.all(), "cartid": cartId})
 

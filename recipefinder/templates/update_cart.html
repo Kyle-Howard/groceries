@@ -14,7 +14,7 @@
     <body>
         <nav>
             <div class="nav-wrapper green">
-                <a href="#" class="brand-logo center">Grocery Planner</a>
+                <a href="/recipefinder/" class="brand-logo center"><i class="material-icons">local_grocery_store</i>Grocery Planner</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a href="/recipefinder/search_recipes?cartid={{cartid}}">Search Recipes</a></li>
                     <li class="active"><a href="/recipefinder/view_cart?cartid={{cartid}}">Your Cart</a></li>
@@ -29,7 +29,7 @@
                         <!-- {{cartid}} -->
                         <div class="input-field s12">
                             {% for recipe in recipes %}
-                            <div class="card-panel light-green lighten-4">
+                            <div class="card-panel light-green lighten-5">
                                 <form type="post" action="/recipefinder/remove_from_cart">
                                     <div class="row">
                                         <div class="col s8 valign-wrapper">
@@ -40,7 +40,7 @@
                                                 <input type="hidden" name="cartid" value='{{cartid}}' placeholder="{{cartid}}"/>
                                                 <input type="hidden" name="recipeid" value='{{recipe.pk}}' placeholder="{{recipeid}}"/>
                                                 <blockquote color="green">
-                                                    Servings: {{recipe.servings}} - Time to Make: {{recipe.time_required}} minutes
+                                                    {{recipe.servings}} Servings - {{recipe.time_required}} minutes
                                                 </blockquote>
                                             </div>
                                         </div>
@@ -61,7 +61,7 @@
                             <form type="get" action="/recipefinder/create_list" style="margin: 0">
                                 <input type="hidden" name="cartid" value='{{cartid}}' placeholder="{{cartid}}"/>
                                 <input type="hidden" name="recipeid" value='{{recipe.pk}}' placeholder="{{recipeid}}"/>
-                                <button class="btn waves-effect waves-light" id="get_list_submit" type="submit" >Create Your Grocery List
+                                <button class="btn waves-effect waves-light green" id="get_list_submit" type="submit" >Create Your Grocery List
                                     <i class="material-icons left">list</i>
                                 </button>
                             </form>
@@ -70,7 +70,7 @@
                             <form type="get" action="/recipefinder/search_recipes" style="margin: 0">
                                 <input type="hidden" name="cartid" value='{{cartid}}' placeholder="{{cartid}}"/>
                                 <input type="hidden" name="recipeid" value='{{recipe.pk}}' placeholder="{{recipeid}}"/>
-                                <button class="btn waves-effect waves-light" id="search_again_submit" type="submit" >Keep Searching
+                                <button class="btn waves-effect waves-light green" id="search_again_submit" type="submit" >Keep Searching
                                     <i class="material-icons left">search</i>
                                 </button>
                             </form>                            

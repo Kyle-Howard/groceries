@@ -11,6 +11,11 @@
     </head>
 
     <body>
+        <nav>
+            <div class="nav-wrapper green">
+                <a href="/recipefinder/" class="brand-logo center"><i class="material-icons">local_grocery_store</i>Grocery Planner</a>
+            </div>
+        </nav>
         <div class="container">
             <h1>Grocery Planner</h1>
             <blockquote>
@@ -20,8 +25,8 @@
             </blockquote>
             <form type="get" action="/recipefinder/search_recipes" style="margin: 0">
                 <input type="hidden" name="cartid" value='{{cartid}}' placeholder="{{cartid}}"/>
-                <button class="btn waves-effect waves-light pulse" id="start_search_submit" type="submit">Start Your Cart!
-                    <i class="material-icons right">shopping_cart</i>
+                <button class="btn waves-effect waves-light pulse green" id="start_search_submit" type="submit">Start Your Cart!
+                    <i class="material-icons left">shopping_cart</i>
                 </button>
             </form>
         </div>

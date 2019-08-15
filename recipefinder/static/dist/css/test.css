@@ -10,5 +10,9 @@
 }
 
 .top-button{
-    margin-top:6vh;
+    margin-top:4vh;
+}
+
+.small-button{
+    margin-top:3px;
 }
