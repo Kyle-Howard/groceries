@@ -3,7 +3,8 @@ import requests
 import spoonacular as sp
 from recipefinder.models import Recipe, Cart, Ingredient
 
-apiKey = "bdc5899f1be24e0c9e8dab87a2d3a4f8"
+# apiKey = "bdc5899f1be24e0c9e8dab87a2d3a4f8"
+apiKey = "18def195df144c25b76272c62f2b8eab"
 maxResults = 3
 Cuisines = ["African", "American", "British", "Cajun","Caribbean", "Chinese",
         "Eastern European", "European", "French", "German", "Greek", "Indian",
@@ -28,7 +29,6 @@ def search_recipes(request):
         else:
             url = f'https://api.spoonacular.com/recipes/search?apiKey={apiKey}&query={q}&cuisine={c}&number={maxResults}'
         response = requests.get(url).json()["results"]
-        print(response)
         context={"cuisines": Cuisines, "query": q, "cuisineselected": c, "response": response, "cartid": cartId}
     else:
         context={"cuisines": Cuisines}
@@ -47,6 +47,7 @@ def update_cart(request):
     recipe.save()
     for result in response["extendedIngredients"]:
         ingredient = Ingredient(ingredient_id=result["id"], amount=result["measures"]["us"]["amount"], unit=result["measures"]["us"]["unitLong"], name=result["name"])
+        ingredient.save()
         recipe.ingredients.add(ingredient)
 
     thisCart.recipes.add(recipe)
@@ -64,4 +65,35 @@ def remove_from_cart(request):
 def create_list(request):
     cartId = request.GET.get('cartid')
     thisCart = Cart.objects.get(pk=cartId)
-    return render(request, 'create_list.html')
+    thisCart.ingredients.clear()
+
+    recipes = thisCart.recipes.all()
+    for recipe in recipes:
+        for ingredient in recipe.ingredients.all():
+            if ingredient in thisCart.ingredients.all():
+                # for listedIngredient in thisCart.ingredients.all():
+                print("this ingredient here:")
+                print(ingredient)
+                for listedIngredient in thisCart.ingredients.all():
+                    if ingredient == listedIngredient:
+                        print(ingredient)
+                        print(listedIngredient)
+                        listedIngredient.amount = listedIngredient.amount + ingredient.amount
+                        print(listedIngredient.amount)
+                        listedIngredient.save()
+            else:
+                print("ingredient added")
+                thisCart.ingredients.add(ingredient)
+                # for listedIngredient in thisCart.ingredients.all():
+                #     if ingredient == listedIngredient:
+                #         print(listedIngredient.amount)
+                #         listedIngredient.amount = listedIngredient.amount + ingredient.amount
+                #     else:
+                #         thisCart.ingredients.add(ingredient)
+    print("Current Cart")
+    for ingredient in thisCart.ingredients.all():
+        print(ingredient.name)
+        print(ingredient)
+        print(ingredient.amount)
+            
+    return render(request, 'create_list.html', context={"recipes": thisCart.recipes.all(), "total_ingredients": thisCart.ingredients.all()})

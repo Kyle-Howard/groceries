@@ -7,6 +7,15 @@ class Ingredient(models.Model):
     unit = models.TextField()
     name = models.TextField()
 
+    def __str__(self):
+        return F"{self.ingredient_id}"
+
+    def __eq__(self, other):
+        return self.ingredient_id == other.ingredient_id
+
+    def __ne__(self, other):
+        return self.ingredient_id != other.ingredient_id
+
 class Recipe(models.Model):
     recipe_name = models.TextField()
     recipe_id = models.IntegerField(null=True)
@@ -16,7 +25,8 @@ class Recipe(models.Model):
     ingredients = models.ManyToManyField(Ingredient)
     
     def __str__(self):
-        return F"{self.recipe_name} - {self.recipe_id}"
+        return F"{self.recipe_name}"
 
 class Cart(models.Model):
     recipes = models.ManyToManyField(Recipe)
+    ingredients = models.ManyToManyField(Ingredient)

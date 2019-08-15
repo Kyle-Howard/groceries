@@ -1,4 +1,23 @@
 <div>
     <h1>Your Grocery List:</h1>
-    
+    {% for recipe in recipes %}
+        <li>
+            {{ recipe.recipe_name }}
+            <br>
+            {% for ingredient in recipe.ingredients.all %}
+                {{ingredient.ingredient_id}} - {{ ingredient.name }} - {{ingredient.amount|floatformat:1}} {{ingredient.unit}}
+                <br>
+            {% endfor %}
+            <br>
+        </li>
+    {% endfor %}
+
+    List Total:
+    {% for total in total_ingredients %}
+        <li>
+            {{total.ingredient_id}} - {{ total.name }} - {{total.amount|floatformat:1}} {{total.unit}}
+            <br>
+        </li>
+    {% endfor %}
+
 </div>

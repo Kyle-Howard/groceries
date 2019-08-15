@@ -4,6 +4,7 @@
     Cart Id : {{cartid}}
     <form type="get" action="" style="margin: 0">
         <input  id="search_box" type="text" name="query"  placeholder="Search..." >
+        <input type="hidden" name="cartid" value='{{cartid}}' placeholder="{{cartid}}"/>
         <select id="{{ form.search.selectcuisine }}" name="cuisineselected" class="form-control">
             <option value="None"></option>
             {% for cuisine in cuisines %}
@@ -25,10 +26,3 @@
     </form>
     {% endfor %}
 </div>
-
-
-
-
-<!-- {{ query }}
-{{ cuisineselected }} -->
-<!-- {{url}} -->
