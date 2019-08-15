@@ -6,23 +6,29 @@
         <input  id="search_box" type="text" name="query"  placeholder="Search..." >
         <input type="hidden" name="cartid" value='{{cartid}}' placeholder="{{cartid}}"/>
         <select id="{{ form.search.selectcuisine }}" name="cuisineselected" class="form-control">
-            <option value="None"></option>
+            <option value="None" selected="selected"></option>
             {% for cuisine in cuisines %}
-            <option value="{{ cuisine }}" selected="selected">{{ cuisine }}</option>
+            <option value="{{ cuisine }}" >{{ cuisine }}</option>
             {% endfor %}
         </select>
         <button id="search_submit" type="submit" >Submit</button>
     </form>
-    {% for result in response %}
-    <form type="post" action="/recipefinder/update_cart">    
-        <li>
-            {{ result.title }}
-            <br>
-            <input type="hidden" name="title" value='{{result.title}}' placeholder="{{result.title}}"/>
-            <input type="hidden" name="id" value='{{result.id}}' placeholder="{{result.id}}"/>
-            <input type="hidden" name="cartid" value='{{cartid}}' placeholder="{{cartid}}"/>
-            <button id="add_cart_submit" type="submit">Add to Cart</button>
-        </li>
-    </form>
-    {% endfor %}
+    <br>
+    <div>
+        {% for result in response %}
+        <form type="post" action="/recipefinder/update_cart">
+            <li>
+                {{ result.title }}
+                <br>
+                <div>
+                    Servings: {{result.servings}} - Time to Make: {{result.readyInMinutes}} minutes
+                </div>
+                <input type="hidden" name="title" value='{{result.title}}' placeholder="{{result.title}}"/>
+                <input type="hidden" name="id" value='{{result.id}}' placeholder="{{result.id}}"/>
+                <input type="hidden" name="cartid" value='{{cartid}}' placeholder="{{cartid}}"/>
+                <button id="add_cart_submit" type="submit">Add to Cart</button>
+            </li>
+        </form>
+        {% endfor %}
+    </div>
 </div>

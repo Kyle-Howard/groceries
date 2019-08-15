@@ -1,6 +1,6 @@
 <div>
     <h1>Your Grocery List:</h1>
-    {% for recipe in recipes %}
+    <!-- {% for recipe in recipes %}
         <li>
             {{ recipe.recipe_name }}
             <br>
@@ -10,14 +10,24 @@
             {% endfor %}
             <br>
         </li>
-    {% endfor %}
-
-    List Total:
-    {% for total in total_ingredients %}
-        <li>
-            {{total.ingredient_id}} - {{ total.name }} - {{total.amount|floatformat:1}} {{total.unit}}
-            <br>
-        </li>
-    {% endfor %}
+    {% endfor %} -->
+    <div>
+        <h2>List Total:</h2>
+        {% for total in total_ingredients %}
+        <form type="post" action="/recipefinder/remove_from_list">    
+            <li>
+                {{ total.name }} - {{total.amount|floatformat:1}} {{total.unit}}
+                <input type="hidden" name="cartid" value='{{cartid}}' placeholder="{{cartid}}"/>
+                <input type="hidden" name="ingredientid" value='{{total.pk}}' placeholder="{{ingredientid}}"/>
+                <button id="remove_ingredient_submit" type="submit">Remove</button>
+                <br>
+            </li>
+        </form>
+        {% endfor %}
+    </div>
+    <form type="post" action="/recipefinder/view_cart">    
+            <input type="hidden" name="cartid" value='{{cartid}}' placeholder="{{cartid}}"/>
+            <button id="list_to_cart_submit" type="submit">Back to Cart</button>
+    </form>
 
 </div>

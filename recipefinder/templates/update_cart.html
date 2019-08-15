@@ -5,6 +5,9 @@
             <li>
                 {{recipe}}
                 <br>
+                <div>
+                    Servings: {{recipe.servings}} - Time to Make: {{recipe.time_required}} minutes
+                </div>
                 <input type="hidden" name="title" value='{{result.title}}' placeholder="{{result.title}}"/>
                 <input type="hidden" name="id" value='{{result.id}}' placeholder="{{result.id}}"/>
                 <input type="hidden" name="cartid" value='{{cartid}}' placeholder="{{cartid}}"/>

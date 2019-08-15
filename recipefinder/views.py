@@ -3,8 +3,8 @@ import requests
 import spoonacular as sp
 from recipefinder.models import Recipe, Cart, Ingredient
 
-# apiKey = "bdc5899f1be24e0c9e8dab87a2d3a4f8"
-apiKey = "18def195df144c25b76272c62f2b8eab"
+apiKey = "bdc5899f1be24e0c9e8dab87a2d3a4f8"
+# apiKey = "18def195df144c25b76272c62f2b8eab"
 maxResults = 3
 Cuisines = ["African", "American", "British", "Cajun","Caribbean", "Chinese",
         "Eastern European", "European", "French", "German", "Greek", "Indian",
@@ -15,7 +15,7 @@ Cuisines = ["African", "American", "British", "Cajun","Caribbean", "Chinese",
 
 # Create your views here.
 def home(request):
-    thisCart = Cart.objects.get(pk=3)
+    thisCart = Cart()
     thisCart.save()
     return render(request, 'home.html', context={"cartid": thisCart.pk})
 
@@ -62,6 +62,11 @@ def remove_from_cart(request):
     thisCart.recipes.remove(recipe)
     return render(request, 'update_cart.html', context={"recipes": thisCart.recipes.all(), "cartid": cartId})
 
+def view_cart(request):
+    cartId = request.GET.get('cartid')
+    thisCart = Cart.objects.get(pk=cartId)
+    return render(request, 'update_cart.html', context={"recipes": thisCart.recipes.all(), "cartid": cartId})
+
 def create_list(request):
     cartId = request.GET.get('cartid')
     thisCart = Cart.objects.get(pk=cartId)
@@ -96,4 +101,12 @@ def create_list(request):
         print(ingredient)
         print(ingredient.amount)
             
-    return render(request, 'create_list.html', context={"recipes": thisCart.recipes.all(), "total_ingredients": thisCart.ingredients.all()})
+    return render(request, 'create_list.html', context={"total_ingredients": thisCart.ingredients.all(), "cartid": cartId})
+
+def remove_from_list(request):
+    cartId = request.GET.get('cartid')
+    ingID = request.GET.get('ingredientid')
+    thisCart = Cart.objects.get(pk=cartId)
+    ingredient = Ingredient.objects.get(pk=ingID)
+    thisCart.ingredients.remove(ingredient)
+    return render(request, 'create_list.html', context={"total_ingredients": thisCart.ingredients.all(), "cartid": cartId})
