@@ -15,7 +15,7 @@ Cuisines = ["African", "American", "British", "Cajun","Caribbean", "Chinese",
 
 # Create your views here.
 def home(request):
-    thisCart = Cart()
+    thisCart = Cart.object.get(pk=5)
     thisCart.save()
     return render(request, 'home.html', context={"cartid": thisCart.pk})
 

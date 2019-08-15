@@ -1,7 +1,31 @@
-<div>
-    <h1>Home</h1>
-    <form type="get" action="/recipefinder/search_recipes" style="margin: 0">
-        <input type="hidden" name="cartid" value='{{cartid}}' placeholder="{{cartid}}"/>
-        <button id="start_search_submit" type="submit" >Start Your Cart!</button>
-    </form>
-</div>
+{% load static %}
+<html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="{% static "dist/css/materialize.min.css"%}"  media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+        <div class="container">
+            <h1>Grocery Planner</h1>
+            <blockquote>
+                Find both new and familiar recipes, add your favorites to your cart, and we will compile all of your ingredients into a list to take with you on your next trip to the store!
+                <br>
+                Click the button below to get started!
+            </blockquote>
+            <form type="get" action="/recipefinder/search_recipes" style="margin: 0">
+                <input type="hidden" name="cartid" value='{{cartid}}' placeholder="{{cartid}}"/>
+                <button class="btn waves-effect waves-light pulse" id="start_search_submit" type="submit">Start Your Cart!
+                    <i class="material-icons right">shopping_cart</i>
+                </button>
+            </form>
+        </div>
+      <!--JavaScript at end of body for optimized loading-->
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+    </body>
+  </html>
