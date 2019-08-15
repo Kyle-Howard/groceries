@@ -5,6 +5,7 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="{% static "dist/css/materialize.min.css"%}"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="{% static "dist/css/test.css"%}"  media="screen,projection"/>
 
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -25,24 +26,30 @@
             <div class="row">
                 <div class="col s12">
                     <div class="row">
-                        {{cartid}}
+                        <!-- {{cartid}} -->
                         <div class="input-field s12">
                             {% for recipe in recipes %}
                             <div class="card-panel light-green lighten-4">
-                                <form type="post" action="/recipefinder/remove_from_cart">    
-                                    <li>
-                                        {{recipe}}
-                                        <input type="hidden" name="title" value='{{result.title}}' placeholder="{{result.title}}"/>
-                                        <input type="hidden" name="id" value='{{result.id}}' placeholder="{{result.id}}"/>
-                                        <input type="hidden" name="cartid" value='{{cartid}}' placeholder="{{cartid}}"/>
-                                        <input type="hidden" name="recipeid" value='{{recipe.pk}}' placeholder="{{recipeid}}"/>
-                                        <blockquote color="green">
-                                            Servings: {{recipe.servings}} - Time to Make: {{recipe.time_required}} minutes
-                                        </blockquote>
-                                            <button class="btn waves-effect waves-light" id="remove_cart_submit" type="submit">Remove Recipe
-                                                <i class="material-icons left">remove_shopping_cart</i>
-                                            </button>
-                                    </li>
+                                <form type="post" action="/recipefinder/remove_from_cart">
+                                    <div class="row">
+                                        <div class="col s8 valign-wrapper">
+                                            <div>
+                                                <h5>{{recipe}}</h5>
+                                                <input type="hidden" name="title" value='{{result.title}}' placeholder="{{result.title}}"/>
+                                                <input type="hidden" name="id" value='{{result.id}}' placeholder="{{result.id}}"/>
+                                                <input type="hidden" name="cartid" value='{{cartid}}' placeholder="{{cartid}}"/>
+                                                <input type="hidden" name="recipeid" value='{{recipe.pk}}' placeholder="{{recipeid}}"/>
+                                                <blockquote color="green">
+                                                    Servings: {{recipe.servings}} - Time to Make: {{recipe.time_required}} minutes
+                                                </blockquote>
+                                            </div>
+                                        </div>
+                                            <div class="col s4 align-button">
+                                                <button class="btn waves-effect waves-light green top-button" id="remove_cart_submit" type="submit">Remove Recipe
+                                                    <i class="material-icons left">remove_shopping_cart</i>
+                                                </button>
+                                            </div>
+                                    </div>
                                 </form>
                             </div>
                             <div class="divider"></div>

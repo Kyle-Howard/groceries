@@ -1,0 +1,14 @@
+.smaller{
+    padding-bottom: .05em !important;
+}
+
+.align-button{
+    
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.top-button{
+    margin-top:6vh;
+}

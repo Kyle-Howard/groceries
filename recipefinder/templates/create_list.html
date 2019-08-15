@@ -10,36 +10,38 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-        <div>
+        <nav>
+            <div class="nav-wrapper green">
+                <a href="#" class="brand-logo center">Grocery Planner</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="/recipefinder/search_recipes?cartid={{cartid}}">Search Recipes</a></li>
+                    <li><a href="/recipefinder/view_cart?cartid={{cartid}}">Your Cart</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
             <h1>Your Grocery List:</h1>
-            <!-- {% for recipe in recipes %}
-                <li>
-                    {{ recipe.recipe_name }}
-                    <br>
-                    {% for ingredient in recipe.ingredients.all %}
-                        {{ingredient.ingredient_id}} - {{ ingredient.name }} - {{ingredient.amount|floatformat:1}} {{ingredient.unit}}
-                        <br>
-                    {% endfor %}
-                    <br>
-                </li>
-            {% endfor %} -->
             <div>
-                <h2>List Total:</h2>
                 {% for total in total_ingredients %}
                 <form type="post" action="/recipefinder/remove_from_list">    
                     <li>
                         {{ total.name }} - {{total.amount|floatformat:1}} {{total.unit}}
                         <input type="hidden" name="cartid" value='{{cartid}}' placeholder="{{cartid}}"/>
                         <input type="hidden" name="ingredientid" value='{{total.pk}}' placeholder="{{ingredientid}}"/>
-                        <button id="remove_ingredient_submit" type="submit">Remove</button>
+                        <button class="btn-small waves-effect waves-light green" id="remove_ingredient_submit" type="submit">Remove
+                                <i class="material-icons left">remove</i>
+                        </button>
                         <br>
                     </li>
                 </form>
+                <div class="divider"></div>
                 {% endfor %}
             </div>
             <form type="post" action="/recipefinder/view_cart">    
                     <input type="hidden" name="cartid" value='{{cartid}}' placeholder="{{cartid}}"/>
-                    <button id="list_to_cart_submit" type="submit">Back to Cart</button>
+                    <button class="btn waves-effect waves-light green" id="list_to_cart_submit" type="submit">Back to Cart
+                        <i class="material-icons left">remove_shopping_cart</i>
+                    </button>
             </form>
         </div>
         <!--JavaScript at end of body for optimized loading-->
