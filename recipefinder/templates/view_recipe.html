@@ -10,6 +10,7 @@
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
+
     <body>
         <nav>
             <div class="nav-wrapper green">
@@ -21,44 +22,49 @@
             </div>
         </nav>
         <div class="container">
-            <h1>Your Grocery List</h1>
+            <h3>{{recipe.recipe_name}}</h3>
             <div class="row">
                 <div class="col s12">
+                    <div class="card-panel light-green lighten-5 valign-wrapper">
+                        <div class="col s4 offset-s2">
+                                {{recipe.servings}} Serving(s) - {{recipe.time_required}} minutes
+                        </div>
+                        <div class="col s4 offset-s2">
+                                Spoonacular Score: {{recipe.rating}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m7">
+                    <div class="card">
+                        <div class="card-image">
+                        <img src="{{recipe.image}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="col s5">
                     <div class="row">
-                        <div>
-                            {% for total in total_ingredients %}
-                                <form type="post" action="/recipefinder/remove_from_list">    
-                                    <div class="col s4">
-                                        {{ total.name }}
-                                    </div>
-                                    <div class="col s1">
-                                        -
-                                    </div>
-                                    <div class="col s3">
-                                        {{total.amount|floatformat:1}} {{total.unit}}
-                                    </div>
-                                    <div class="col s4">
-                                        <input type="hidden" name="cartid" value='{{cartid}}' placeholder="{{cartid}}"/>
-                                        <input type="hidden" name="ingredientid" value='{{total.pk}}' placeholder="{{ingredientid}}"/>
-                                        <button class="btn-small waves-effect waves-light green small-button" id="remove_ingredient_submit" type="submit">Remove
-                                            <i class="material-icons left">remove</i>
-                                        </button>
-                                    </div>
-                                    <br>
-                                </form>
-                                <div class="divider"></div>
+                        <div class="card-panel light-green lighten-5">
+                            <h5>Ingredients:</h5>
+                            {% for ingredient in ingredients %}
+                                <ul>
+                                    {{ingredient.amount|floatformat:1}} {{ingredient.unit}} {{ingredient.name}}
+                                </ul>
                             {% endfor %}
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <form type="post" action="/recipefinder/view_cart">    
-                    <input type="hidden" name="cartid" value='{{cartid}}' placeholder="{{cartid}}"/>
-                    <button class="btn waves-effect waves-light green" id="list_to_cart_submit" type="submit">Back to Cart
-                        <i class="material-icons left">remove_shopping_cart</i>
-                    </button>
-                </form>
+                <div class="col s12">
+                    <div class="row">
+                        <div class="card-panel light-green lighten-5">
+                            <h5>Instructions</h5>
+                                {{recipe.instructions}}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <br>

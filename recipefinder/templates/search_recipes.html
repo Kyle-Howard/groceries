@@ -56,7 +56,7 @@
                                             <div>
                                                 <h5>{{ result.title }}</h5>
                                                 <blockquote>
-                                                    {{result.servings}} Servings - {{result.readyInMinutes}} minutes
+                                                    {{result.servings}} Serving(s) - {{result.readyInMinutes}} minutes
                                                 </blockquote>
                                                 <input type="hidden" name="title" value='{{result.title}}' placeholder="{{result.title}}"/>
                                                 <input type="hidden" name="id" value='{{result.id}}' placeholder="{{result.id}}"/>
@@ -78,8 +78,35 @@
                 </div>
             </div>
         </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <footer class="page-footer green">
+            <div class="container">
+                <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text"><i class="material-icons">local_grocery_store</i>Grocery Planner</h5>
+                    <p class="grey-text text-lighten-4">This app was made using the Django framework, the Materialize styling format, and the Spoonacular API.</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Links</h5>
+                    <ul>
+                    <li><a class="grey-text text-lighten-3" href="/recipefinder/search_recipes?cartid={{cartid}}">Search Recipes</a></li>
+                    <li><a class="grey-text text-lighten-3" href="/recipefinder/view_cart?cartid={{cartid}}">Your Cart</a></li>
+                    <li><a class="grey-text text-lighten-3" href="https://spoonacular.com/food-api">Spoonacular API</a></li>
+                    </ul>
+                </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                Made By Kyle Howard
+                <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+                </div>
+            </div>
+        </footer>
       <!--JavaScript at end of body for optimized loading-->
-        
       <script type="text/javascript" src="{% static "dist/js/materialize.min.js"%}"></script>
       <script type="text/javascript" >
        document.addEventListener('DOMContentLoaded', function() {

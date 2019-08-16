@@ -35,9 +35,12 @@ def search_recipes(request):
 
     return render(request, 'search_recipes.html', context )
 
-# def view_recipes(request):
-#     cartId = request.GET.get('cartid')    
-#     recipeid = request.GET.get('id')
+def view_recipe(request):
+    cartId = request.GET.get('cartid')    
+    recipeID = request.GET.get('recipeid')
+    recipe = Recipe.objects.get(pk=recipeID)
+
+    return render(request, 'view_recipe.html', context={"recipe": recipe, "cartid": cartId, "ingredients": recipe.ingredients.all()})
 
 
 def update_cart(request):
@@ -48,7 +51,7 @@ def update_cart(request):
 
     url = f'https://api.spoonacular.com/recipes/{recipeid}/information?apiKey={apiKey}&includeNutrition=false'
     response = requests.get(url).json()
-    recipe = Recipe(recipe_name=response["title"], recipe_id=response["id"], servings=response["servings"], time_required=response["readyInMinutes"], rating=response["spoonacularScore"])
+    recipe = Recipe(recipe_name=response["title"], recipe_id=response["id"], servings=response["servings"], time_required=response["readyInMinutes"], rating=response["spoonacularScore"], image=response["image"],instructions=response["instructions"])
     recipe.save()
     for result in response["extendedIngredients"]:
         ingredient = Ingredient(ingredient_id=result["id"], amount=result["measures"]["us"]["amount"], unit=result["measures"]["us"]["unitLong"], name=result["name"])
@@ -63,6 +66,7 @@ def update_cart(request):
 def remove_from_cart(request):
     cartId = request.GET.get('cartid')
     recipeID = request.GET.get('recipeid')
+    print(cartId)
     thisCart = Cart.objects.get(pk=cartId)
     recipe = Recipe.objects.get(pk=recipeID)
     thisCart.recipes.remove(recipe)
