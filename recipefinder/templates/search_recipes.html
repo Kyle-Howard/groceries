@@ -31,13 +31,13 @@
                                 <input  id="search_box" type="text" name="query"  placeholder="Search..." >
                             </div>
                             <div class="input-field col s3">
-                                <!-- <label>Cuisine</label> -->
-                                <select class="browser-default" id="{{ form.search.selectcuisine }}" name="cuisineselected" class="form-control">
-                                    <option value="None" selected="selected">Cuisine</option>
+                                <select class="input-field" id="{{ form.search.selectcuisine }}" name="cuisineselected" class="form-control">
+                                    <option value="None" selected="selected"></option>
                                     {% for cuisine in cuisines %}
                                         <option value="{{ cuisine }}" >{{ cuisine }}</option>
                                     {% endfor %}
                                 </select>
+                                <label>Cuisine</label>
                             </div>
                             <div class="input-field col s3">
                                 <button class="btn waves-effect waves-light green" id="search_submit" type="submit" >Search
@@ -56,7 +56,7 @@
                                             <div>
                                                 <h5>{{ result.title }}</h5>
                                                 <blockquote>
-                                                    Servings: {{result.servings}} - Time to Make: {{result.readyInMinutes}} minutes
+                                                    {{result.servings}} Servings - {{result.readyInMinutes}} minutes
                                                 </blockquote>
                                                 <input type="hidden" name="title" value='{{result.title}}' placeholder="{{result.title}}"/>
                                                 <input type="hidden" name="id" value='{{result.id}}' placeholder="{{result.id}}"/>
@@ -84,7 +84,7 @@
       <script type="text/javascript" >
        document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('select');
-            var instances = M.FormSelect.init(elems, options);
+            var instances = M.FormSelect.init(elems, {});
         });    
       </script>
     </body>

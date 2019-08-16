@@ -30,13 +30,11 @@
                         <div class="input-field s12">
                             {% for recipe in recipes %}
                             <div class="card-panel light-green lighten-5">
-                                <form type="post" action="/recipefinder/remove_from_cart">
-                                    <div class="row">
+                                <div class="row">
+                                    <form type="post" action="/recipefinder/remove_from_cart">
                                         <div class="col s8 valign-wrapper">
                                             <div>
                                                 <h5>{{recipe}}</h5>
-                                                <input type="hidden" name="title" value='{{result.title}}' placeholder="{{result.title}}"/>
-                                                <input type="hidden" name="id" value='{{result.id}}' placeholder="{{result.id}}"/>
                                                 <input type="hidden" name="cartid" value='{{cartid}}' placeholder="{{cartid}}"/>
                                                 <input type="hidden" name="recipeid" value='{{recipe.pk}}' placeholder="{{recipeid}}"/>
                                                 <blockquote color="green">
@@ -44,13 +42,22 @@
                                                 </blockquote>
                                             </div>
                                         </div>
-                                            <div class="col s4 align-button">
-                                                <button class="btn waves-effect waves-light green top-button" id="remove_cart_submit" type="submit">Remove Recipe
-                                                    <i class="material-icons left">remove_shopping_cart</i>
-                                                </button>
-                                            </div>
-                                    </div>
-                                </form>
+                                        <div class="col s4 align-button">
+                                            <button class="btn waves-effect waves-light green top-button" id="remove_cart_submit" type="submit">Remove Recipe
+                                                <i class="material-icons left">remove_shopping_cart</i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <!-- <form type="post" action="/recipefinder/view_recipe">
+                                        <div class="col s4 align-button">
+                                            <input type="hidden" name="cartid" value='{{cartid}}' placeholder="{{cartid}}"/>
+                                            <input type="hidden" name="recipeid" value='{{recipe.pk}}' placeholder="{{recipeid}}"/>
+                                            <button class="btn waves-effect waves-light green top-button" id="remove_cart_submit" type="submit">View Recipe Details
+                                                <i class="material-icons left">restaurant_menu</i>
+                                            </button>
+                                        </div>
+                                    </form> -->
+                                </div>
                             </div>
                             <div class="divider"></div>
                             {% endfor %}

@@ -22,6 +22,7 @@ class Recipe(models.Model):
     servings = models.IntegerField(null=True)
     time_required = models.IntegerField(null=True)
     rating = models.FloatField(null=True)
+    # instructions = models.TextField()
     ingredients = models.ManyToManyField(Ingredient)
     
     def __str__(self):

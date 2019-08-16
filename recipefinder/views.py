@@ -5,7 +5,7 @@ from recipefinder.models import Recipe, Cart, Ingredient
 
 apiKey = "bdc5899f1be24e0c9e8dab87a2d3a4f8"
 # apiKey = "18def195df144c25b76272c62f2b8eab"
-maxResults = 3
+maxResults = 5
 Cuisines = ["African", "American", "British", "Cajun","Caribbean", "Chinese",
         "Eastern European", "European", "French", "German", "Greek", "Indian",
         "Irish", "Italian", "Japanese", "Jewish", "Korean", "Latin American",
@@ -34,6 +34,11 @@ def search_recipes(request):
         context={"cuisines": Cuisines}
 
     return render(request, 'search_recipes.html', context )
+
+# def view_recipes(request):
+#     cartId = request.GET.get('cartid')    
+#     recipeid = request.GET.get('id')
+
 
 def update_cart(request):
     title = request.GET.get('title')
